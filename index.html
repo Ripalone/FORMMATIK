@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FORMMATIK</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: sans-serif; text-align: center; margin: 20px; }
+    button { padding: 10px 20px; font-size: 18px; margin: 10px; }
+  </style>
+</head>
+<body>
+  <h1>🎮 FORMMATIK</h1>
+  <p>Coin Kamu: <span id="coin">0</span></p>
+  <button id="btnMining">Klaim 100 Coin / 24 Jam</button><br>
+  <button onclick="withdraw()">Tarik Coin</button>
+  <button onclick="deposit()">Deposit</button>
+  <button onclick="beliPaket()">Beli Paket 20rb (3rb/hari x30)</button>
+
+  <script>
+    function updateCoin() {
+      document.getElementById("coin").innerText = localStorage.getItem("coin") || 0;
+    }
+
+    function startMining() {
+      const now = Date.now();
+      const lastClaim = localStorage.getItem("lastClaim");
+      if (!lastClaim || now - lastClaim > 24*60*60*1000) {
+        let coin = parseInt(localStorage.getItem("coin") || 0);
+        coin += 100;
+        localStorage.setItem("coin", coin);
+        localStorage.setItem("lastClaim", now);
+        alert("Berhasil klaim 100 coin!");
+      } else {
+        alert("Tunggu 24 jam bro!");
+      }
+      updateCoin();
+    }
+
+    function withdraw() {
+      alert("Penarikan manual: isi form atau hubungi admin.");
+    }
+
+    function deposit() {
+      alert("Deposit ke Dana 08xxxx lalu kirim bukti ke admin.");
+    }
+
+    function beliPaket() {
+      alert("Paket aktif! 3rb coin/hari akan diberikan secara manual.");
+    }
+
+    document.getElementById("btnMining").addEventListener("click", startMining);
+    updateCoin();
+  </script>
+</body>
+</html>
